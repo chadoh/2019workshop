@@ -1,9 +1,9 @@
-import Link from 'next/link'
+import CreateItem from '../components/CreateItem'
 
 const Sell = () => (
-    <div>
-        <p>Sell!</p>
-    </div>
+  <div>
+    <CreateItem />
+  </div>
 )
 
 export default Sell
