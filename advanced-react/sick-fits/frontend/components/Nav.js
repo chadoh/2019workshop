@@ -1,32 +1,51 @@
 import Link from 'next/link';
+import { Mutation } from 'react-apollo'
+import gql from 'graphql-tag'
 import NavStyles from './styles/NavStyles';
-import User from './User';
+import User, { CURRENT_USER_QUERY } from './User';
+
+const SIGNOUT_MUTATION = gql`
+  mutation SIGNOUT_MUTATION {
+    signout
+  }
+`
 
 const Nav = () => (
-  <NavStyles>
-    <User>
-      {({ data: { me } }) => {
-        if (me) return <p>{me.name}</p>
+  <User>
+    {({ data: { me } }) => (
+      <NavStyles>
+        <Link href="/items">
+          <a>Shop</a>
+        </Link>
 
-        return null
-      }}
-    </User>
-    <Link href="/items">
-      <a>Shop</a>
-    </Link>
-    <Link href="/sell">
-      <a>Sell</a>
-    </Link>
-    <Link href="/signup">
-      <a>Signup</a>
-    </Link>
-    <Link href="/orders">
-      <a>Orders</a>
-    </Link>
-    <Link href="/me">
-      <a>Account</a>
-    </Link>
-  </NavStyles>
+        {me && (
+          <React.Fragment>
+            <Link href="/sell">
+              <a>Sell</a>
+            </Link>
+            <Link href="/orders">
+              <a>Orders</a>
+            </Link>
+            <Link href="/me">
+              <a>Account</a>
+            </Link>
+            <Mutation
+              mutation={SIGNOUT_MUTATION}
+              refetchQueries={[ { query: CURRENT_USER_QUERY } ]}
+            >
+              {signout => <button onClick={signout}> Sign Out </button>}
+            </Mutation>
+          </React.Fragment>
+        )}
+
+        {!me && (
+          <Link href="/signup">
+            <a>Sign In</a>
+          </Link>
+        )}
+      </NavStyles>
+    )}
+  </User>
 );
 
 export default Nav;
