@@ -25,13 +25,19 @@ const DeleteItem = ({ id }) => (
     update={updateCache}
   >
     {(deleteItem, { error, loading }) => {
-      return <button onClick={() => {
-        if (confirm('Are you sure you want to delete this item?')) {
-          deleteItem()
-        }
-      }}>
-        Delete Item
-      </button>
+      return (
+        <button
+          onClick={() => {
+            if (confirm('Are you sure you want to delete this item?')) {
+              deleteItem().catch(err => {
+                alert(err.message.replace('GraphQL error: ', ''))
+              })
+            }
+          }}
+        >
+          Delete Item
+        </button>
+      )
     }}
   </Mutation>
 )
