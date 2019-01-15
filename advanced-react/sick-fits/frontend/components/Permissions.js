@@ -89,7 +89,7 @@ const UserPermissions = ({ id, name, email, permissions }) => (
     mutation={UPDATE_PERMISSIONS_MUTATION}
     refetchQueries={[ { query: ALL_USERS_QUERY } ]}
   >
-    {(updatePermissions, { error, loading }) => (
+    {(updatePermissions, { error }) => (
       <Fragment>
         {error && <tr><td colSpan="9"><Error error={error} /></td></tr>}
         <tr>
@@ -102,8 +102,7 @@ const UserPermissions = ({ id, name, email, permissions }) => (
                   id={`${id}-permission-${permission}`}
                   type="checkbox"
                   value={permission}
-                  disabled={loading}
-                  checked={permissions.includes(permission)}
+                  defaultChecked={permissions.includes(permission)}
                   onChange={changePermissions(updatePermissions, id, permissions)}
                 />
               </label>
