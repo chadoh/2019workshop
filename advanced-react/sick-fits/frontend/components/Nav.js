@@ -37,7 +37,7 @@ const Nav = () => (
               {signout => <button onClick={signout}>Sign Out</button>}
             </Mutation>
             <Mutation mutation={TOGGLE_CART_MUTATION}>
-              {toggleCart => <button onClick={toggleCart}>Toggle Cart</button>}
+              {toggleCart => <button onClick={toggleCart}>Cart</button>}
             </Mutation>
           </React.Fragment>
         )}
