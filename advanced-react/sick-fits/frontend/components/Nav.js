@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import NavStyles from './styles/NavStyles';
 import User, { CURRENT_USER_QUERY } from './User';
+import CartCount from './CartCount'
 import { TOGGLE_CART_MUTATION } from './Cart'
 
 const SIGNOUT_MUTATION = gql`
@@ -37,7 +38,17 @@ const Nav = () => (
               {signout => <button onClick={signout}>Sign Out</button>}
             </Mutation>
             <Mutation mutation={TOGGLE_CART_MUTATION}>
-              {toggleCart => <button onClick={toggleCart}>Cart</button>}
+              {toggleCart =>
+                <button onClick={toggleCart}>
+                  Cart
+                  <CartCount
+                    count={me.cart.reduce(
+                      (tally, cartItem) => tally + cartItem.quantity,
+                      0
+                    )}
+                  />
+                </button>
+              }
             </Mutation>
           </React.Fragment>
         )}
