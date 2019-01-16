@@ -23,12 +23,30 @@ const REMOVE_FROM_CART = gql`
   }
 `
 
+// gets called as soon as we get a response BACK from the server,
+// after a mutation has been performed
+const updateCache = (cache, payload) => {
+  const data = cache.readQuery({ query: CURRENT_USER_QUERY })
+
+  const cartItemId = payload.data.removeFromCart.id
+  data.me.cart = data.me.cart.filter(cartItem => cartItem.id !== cartItemId)
+
+  cache.writeQuery({ query: CURRENT_USER_QUERY, data })
+}
+
 const RemoveFromCart = ({ id }) => {
   return (
     <Mutation
       mutation={REMOVE_FROM_CART}
       variables={{ id }}
-      refetchQueries={[ { query: CURRENT_USER_QUERY } ]}
+      update={updateCache}
+      optimisticResponse={{
+        __typename: 'Mutation',
+        removeFromCart: {
+          __typename: 'CartItem',
+          id,
+        }
+      }}
     >
       {(removeFromCart, { error, loading}) => (
         <BigButton
