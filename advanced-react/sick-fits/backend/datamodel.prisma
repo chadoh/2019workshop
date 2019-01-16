@@ -28,11 +28,12 @@ type Item {
   createdAt: DateTime!
   updatedAt: DateTime!
   user: User!
+  cartItems: [CartItem!]! @relation(name: "CartItemToItem", onDelete: CASCADE)
 }
 
 type CartItem {
   id: ID! @unique
   quantity: Int! @default(value: 1)
-  item: Item!
+  item: Item @relation(name: "CartItemToItem")
   user: User!
 }

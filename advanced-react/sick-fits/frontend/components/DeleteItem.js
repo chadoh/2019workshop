@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { ALL_ITEMS_QUERY } from './Items'
+import { CURRENT_USER_QUERY } from './User'
 
 const DELETE_ITEM_MUTATION = gql`
   mutation DELETE_ITEM_MUTATION($id: ID!) {
@@ -12,17 +13,14 @@ const DELETE_ITEM_MUTATION = gql`
   }
 `
 
-const updateCache = (cache, payload) => {
-  const data = cache.readQuery({ query: ALL_ITEMS_QUERY })
-  data.items = data.items.filter(i => i.id !== payload.data.deleteItem.id)
-  cache.writeQuery({ query: ALL_ITEMS_QUERY, data })
-}
-
 const DeleteItem = ({ id }) => (
   <Mutation
     mutation={DELETE_ITEM_MUTATION}
     variables={{ id }}
-    update={updateCache}
+    refetchQueries={[
+      { query: CURRENT_USER_QUERY },
+      { query: ALL_ITEMS_QUERY },
+    ]}
   >
     {(deleteItem, { error, loading }) => {
       return (
