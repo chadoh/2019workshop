@@ -215,6 +215,22 @@ const Mutations = {
         },
       }
     }, info)
+  },
+  async removeFromCart(parent, { id }, ctx, info) {
+    const cartItem = await ctx.db.query.cartItem({
+      where: { id }
+    }, '{ id, user { id } }')
+    if (!cartItem) {
+      throw new Error(`Hmm, something went wrong. No item with id=${id} found in your cart!`)
+    }
+
+    if (ctx.request.userId !== cartItem.user.id) {
+      throw new Error('You can only remove items from your own cart... 😕')
+    }
+
+    return ctx.db.mutation.deleteCartItem({
+      where: { id }
+    }, info)
   }
 };
 
