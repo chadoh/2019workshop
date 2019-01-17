@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/chad-ostrowski-69fb43/sick-fits-chadoh/dev
-# timestamp: Wed Jan 16 2019 10:41:33 GMT-0500 (EST)
+# timestamp: Wed Jan 16 2019 11:40:22 GMT-0500 (EST)
 
 type AggregateCartItem {
   count: Int!
@@ -21,7 +21,7 @@ type BatchPayload {
 type CartItem implements Node {
   id: ID!
   quantity: Int!
-  item: Item
+  item: Item!
   user: User!
 }
 
@@ -37,7 +37,7 @@ type CartItemConnection {
 
 input CartItemCreateInput {
   quantity: Int
-  item: ItemCreateOneWithoutCartItemsInput
+  item: ItemCreateOneWithoutCartItemsInput!
   user: UserCreateOneWithoutCartInput!
 }
 
@@ -58,7 +58,7 @@ input CartItemCreateWithoutItemInput {
 
 input CartItemCreateWithoutUserInput {
   quantity: Int
-  item: ItemCreateOneWithoutCartItemsInput
+  item: ItemCreateOneWithoutCartItemsInput!
 }
 
 """An edge in a connection."""
@@ -200,7 +200,7 @@ input CartItemSubscriptionWhereInput {
 
 input CartItemUpdateInput {
   quantity: Int
-  item: ItemUpdateOneWithoutCartItemsInput
+  item: ItemUpdateOneRequiredWithoutCartItemsInput
   user: UserUpdateOneRequiredWithoutCartInput
 }
 
@@ -248,7 +248,7 @@ input CartItemUpdateWithoutItemDataInput {
 
 input CartItemUpdateWithoutUserDataInput {
   quantity: Int
-  item: ItemUpdateOneWithoutCartItemsInput
+  item: ItemUpdateOneRequiredWithoutCartItemsInput
 }
 
 input CartItemUpdateWithWhereUniqueWithoutItemInput {
@@ -497,11 +497,9 @@ input ItemUpdateManyMutationInput {
   price: Int
 }
 
-input ItemUpdateOneWithoutCartItemsInput {
+input ItemUpdateOneRequiredWithoutCartItemsInput {
   create: ItemCreateWithoutCartItemsInput
   connect: ItemWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: ItemUpdateWithoutCartItemsDataInput
   upsert: ItemUpsertWithoutCartItemsInput
 }
