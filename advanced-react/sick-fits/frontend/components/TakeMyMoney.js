@@ -29,9 +29,13 @@ const totalItems = cart => cart.reduce(
 )
 
 const handlePayment = createOrder => async res => {
+  NProgress.start()
   const order = await createOrder({ variables: { token: res.id } })
     .catch(err => { alert(err.message.replace('GraphQL error: ', '')) })
-
+  Router.push({
+    pathname: '/order',
+    query: { id: order.data.createOrder.id },
+  })
 }
 
 export default class TakeMyMoney extends Component {

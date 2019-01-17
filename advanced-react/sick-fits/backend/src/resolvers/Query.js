@@ -24,7 +24,28 @@ const Query = {
     hasPermission(user, ['ADMIN', 'PERMISSIONUPDATE'])
 
     return ctx.db.query.users({}, info)
-  }
+  },
+  async order(parent, { id }, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in.')
+    }
+
+    const order = await ctx.db.query.order(
+      { where: { id }},
+      info
+    )
+    if (!order) {
+      throw new Error('No order found for given id!')
+    }
+
+    const ownsOrder = order.user.id == ctx.request.userId
+    const hasPermissionsToSeeOrder = ctx.request.user.permissions.includes('ADMIN')
+    if (!ownsOrder && !hasPermissionsToSeeOrder) {
+      throw new Error("You're not allowed to see this.")
+    }
+
+    return order
+  },
 };
 
 module.exports = Query;
