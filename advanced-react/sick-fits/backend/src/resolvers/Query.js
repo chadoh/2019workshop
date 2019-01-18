@@ -46,6 +46,17 @@ const Query = {
 
     return order
   },
+  orders(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in.')
+    }
+
+    return ctx.db.query.orders({
+      where: {
+        user: { id: ctx.request.userId }
+      }
+    }, info)
+  },
 };
 
 module.exports = Query;
