@@ -30,9 +30,10 @@ const Query = {
       throw new Error('You must be logged in.')
     }
 
+    // fetch order's user for permissions check
     const order = await ctx.db.query.order(
       { where: { id }},
-      info
+      '{ user { id } }'
     )
     if (!order) {
       throw new Error('No order found for given id!')
@@ -44,7 +45,12 @@ const Query = {
       throw new Error("You're not allowed to see this.")
     }
 
-    return order
+    // return order with fields requested by user
+    return ctx.db.query.order(
+      { where: { id }},
+      info
+    )
+
   },
   orders(parent, args, ctx, info) {
     if (!ctx.request.userId) {
