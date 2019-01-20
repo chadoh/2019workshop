@@ -33,7 +33,7 @@ const Order = ({ id }) => (
     variables={{ id }}
   >
     {({ data: { order }, error, loading}) => {
-      if (loading) return "Loading..."
+      if (loading) return 'Loading...'
       if (error) return <Error error={error} />
       return (
         <OrderStyles>

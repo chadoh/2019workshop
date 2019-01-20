@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Link from 'next/link'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -36,7 +37,7 @@ const OrderUl = styled.ul`
 const Orders = ({ id }) => (
   <Query query={USER_ORDERS_QUERY}>
     {({ data: { orders }, error, loading}) => {
-      if (loading) return "Loading..."
+      if (loading) return 'Loading...'
       if (error) return <Error error={error} />
       return (
         <React.Fragment>
@@ -77,5 +78,9 @@ const Orders = ({ id }) => (
     }}
   </Query>
 )
+
+Orders.propTypes = {
+  id: PropTypes.number.isRequired,
+}
 
 export default Orders

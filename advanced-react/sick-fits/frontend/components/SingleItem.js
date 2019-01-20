@@ -37,7 +37,7 @@ const SingleItem = ({ id }) => (
     variables={{ id }}
   >
     {({ loading, error, data: { item } }) => {
-      if (loading) return "Loading..."
+      if (loading) return 'Loading...'
       if (error) return <Error error={error} />
       if (!item) return `No item found for ID ${id}`
       return (

@@ -32,7 +32,7 @@ const AddToCart = ({ id }) => (
       </Fragment>
     )}
   </Mutation>
-  )
+)
 
 
 AddToCart.propTypes = {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Mutation, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Form from './styles/Form'
@@ -36,6 +37,9 @@ mutation UPDATE_ITEM_MUTATION(
 `
 
 class UpdateItem extends Component {
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+  }
   state = {}
 
   handleChange = (e) => {
@@ -44,9 +48,9 @@ class UpdateItem extends Component {
     this.setState({ [name]: val })
   }
 
-  updateItem = async (e, updateItemMutation) => {
+  updateItem = (e, updateItemMutation) => {
     e.preventDefault()
-    const res = await updateItemMutation({
+    updateItemMutation({
       variables: {
         id: this.props.id,
         ...this.state,

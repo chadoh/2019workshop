@@ -1,8 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import RemoveFromCart from './RemoveFromCart'
-import formatMoney from '../lib/formatMoney'
 import styled from 'styled-components'
+import RemoveFromCart from './RemoveFromCart'
+import { ItemInterface } from './Item'
+import formatMoney from '../lib/formatMoney'
+
+export interface CartItemInterface {
+  id: string;
+  quantity: number;
+  item: ItemInterface;
+}
 
 const CartItemStyles = styled.li`
   padding: 1rem 0;
@@ -14,12 +20,13 @@ const CartItemStyles = styled.li`
   img {
     width: 7em;
   }
-  h3, p {
+  h3,
+  p {
     margin: 0;
   }
 `
 
-const CartItem = ({ id, quantity, item }) => {
+const CartItem: React.SFC<CartItemInterface> = ({ id, quantity, item }) => {
   return (
     <CartItemStyles>
       <img src={item.image} alt="" />
@@ -37,16 +44,4 @@ const CartItem = ({ id, quantity, item }) => {
     </CartItemStyles>
   )
 }
-
-CartItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
-  item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
-}
-
 export default CartItem

@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
@@ -11,11 +11,14 @@ const possiblePermissions = [
   'ITEMCREATE',
   'ITEMUPDATE',
   'ITEMDELETE',
-  'PERMISSIONUPDATE',
+  'PERMISSIONUPDATE'
 ]
 
 const UPDATE_PERMISSIONS_MUTATION = gql`
-  mutation UPDATE_PERMISSIONS_MUTATION($permissions: [Permission!]!, $userId: ID!) {
+  mutation UPDATE_PERMISSIONS_MUTATION(
+    $permissions: [Permission!]!
+    $userId: ID!
+  ) {
     updatePermissions(permissions: $permissions, userId: $userId) {
       id
       permissions
@@ -36,38 +39,43 @@ const ALL_USERS_QUERY = gql`
   }
 `
 
-export default () => (
-  <Query query={ALL_USERS_QUERY}>
-    {({ data, error, loading }) => {
-      if (loading) return "Loading..."
-      return (
-        <Fragment>
-          <Error error={error} />
-          <h2>Manage Permissions</h2>
-          <Table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                {possiblePermissions.map(permission => (
-                  <th key={permission}>{permission}</th>
+export default function Permissions() {
+  return (
+    <Query query={ALL_USERS_QUERY}>
+      {({ data, error, loading }) => {
+        if (loading) return 'Loading...'
+        return (
+          <Fragment>
+            <Error error={error} />
+            <h2>Manage Permissions</h2>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  {possiblePermissions.map(permission => (
+                    <th key={permission}>{permission}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {data.users.map(user => (
+                  <UserPermissions key={user.id} {...user} />
                 ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.users.map(user => (
-                <UserPermissions key={user.id} {...user} />
-              ))}
-            </tbody>
-          </Table>
-        </Fragment>
-      )
-    }}
-  </Query>
-)
+              </tbody>
+            </Table>
+          </Fragment>
+        )
+      }}
+    </Query>
+  )
+}
 
-
-const changePermissions = (updatePermissions, userId, currentPermissions) => e => {
+const changePermissions = (
+  updatePermissions,
+  userId,
+  currentPermissions
+) => e => {
   const checkbox = e.target
   let updatedPermissions = [...currentPermissions]
   if (checkbox.checked) {
@@ -87,11 +95,17 @@ const changePermissions = (updatePermissions, userId, currentPermissions) => e =
 const UserPermissions = ({ id, name, email, permissions }) => (
   <Mutation
     mutation={UPDATE_PERMISSIONS_MUTATION}
-    refetchQueries={[ { query: ALL_USERS_QUERY } ]}
+    refetchQueries={[{ query: ALL_USERS_QUERY }]}
   >
     {(updatePermissions, { error }) => (
       <Fragment>
-        {error && <tr><td colSpan="9"><Error error={error} /></td></tr>}
+        {error && (
+          <tr>
+            <td colSpan="9">
+              <Error error={error} />
+            </td>
+          </tr>
+        )}
         <tr>
           <td>{name}</td>
           <td>{email}</td>
@@ -103,7 +117,11 @@ const UserPermissions = ({ id, name, email, permissions }) => (
                   type="checkbox"
                   value={permission}
                   defaultChecked={permissions.includes(permission)}
-                  onChange={changePermissions(updatePermissions, id, permissions)}
+                  onChange={changePermissions(
+                    updatePermissions,
+                    id,
+                    permissions
+                  )}
                 />
               </label>
             </td>
@@ -118,5 +136,5 @@ UserPermissions.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
-  permissions: PropTypes.array.isRequired,
+  permissions: PropTypes.array.isRequired
 }

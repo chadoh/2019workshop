@@ -46,7 +46,7 @@ class Reset extends Component {
             method="post"
             onSubmit={async e => {
               e.preventDefault()
-              const res = await reset()
+              await reset()
               Router.push({ pathname: '/' })
             }}
           >

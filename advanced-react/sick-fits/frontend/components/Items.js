@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
-import styled from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Query } from 'react-apollo'
+import gql from 'graphql-tag'
+import styled from 'styled-components'
 import Item from './Item'
 import Pagination from './Pagination'
 import { perPage } from '../config'
@@ -21,11 +22,11 @@ export const ALL_ITEMS_QUERY = gql`
       largeImage
     }
   }
-`;
+`
 
 const Center = styled.div`
   text-align: center;
-`;
+`
 
 const ItemsList = styled.div`
   display: grid;
@@ -33,7 +34,7 @@ const ItemsList = styled.div`
   grid-gap: 60px;
   max-width: ${props => props.theme.maxWidth};
   margin: 0 auto;
-`;
+`
 
 const Items = ({ page }) => (
   <Center>
@@ -43,8 +44,8 @@ const Items = ({ page }) => (
       variables={{ skip: page * perPage - perPage }}
     >
       {({ data, error, loading}) => {
-        if (loading) return <p>loading...</p>;
-        if (error) return <p><strong>Error!</strong> {error.message}</p>;
+        if (loading) return <p>loading...</p>
+        if (error) return <p><strong>Error!</strong> {error.message}</p>
 
         return <ItemsList>
           {data.items.map(item =>
@@ -57,4 +58,8 @@ const Items = ({ page }) => (
   </Center>
 )
 
-export default Items;
+Items.propTypes = {
+  page: PropTypes.number,
+}
+
+export default Items

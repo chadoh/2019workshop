@@ -23,7 +23,7 @@ const Pagination = ({ page }) => {
       query={PAGINATION_QUERY}
     >
       {({data, loading, error}) => {
-        if (loading) return "Loading..."
+        if (loading) return 'Loading...'
         if (error) return error
 
         const itemCount = data.itemsConnection.aggregate.count

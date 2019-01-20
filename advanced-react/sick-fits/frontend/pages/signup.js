@@ -1,3 +1,4 @@
+import React from 'react'
 import Signup from '../components/Signup'
 import Signin from '../components/Signin'
 import RequestReset from '../components/RequestReset'

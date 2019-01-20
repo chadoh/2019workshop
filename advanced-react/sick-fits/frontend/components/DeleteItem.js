@@ -26,7 +26,7 @@ const DeleteItem = ({ id }) => (
       return (
         <button
           onClick={() => {
-            if (confirm('Are you sure you want to delete this item?')) {
+            if (window.confirm('Are you sure you want to delete this item?')) {
               deleteItem().catch(err => {
                 alert(err.message.replace('GraphQL error: ', ''))
               })

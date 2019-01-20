@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@zeit/next-typescript": "^1.1.1",
     "apollo-boost": "^0.1.16",
     "apollo-client": "^2.4.2",
     "babel-core": "^7.0.0-bridge.0",
@@ -39,15 +40,29 @@
     "waait": "^1.0.2"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.13",
+    "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "casual": "^1.5.19",
     "enzyme-to-json": "^3.3.4",
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-config-react-app": "^3.0.6",
+    "eslint-plugin-flowtype": "^3.2.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
     "graphql-tools": "^4.0.0",
     "jest": "^23.6.0",
-    "jest-transform-graphql": "^2.1.0"
+    "jest-transform-graphql": "^2.1.0",
+    "prettier": "^1.15.3",
+    "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1"
   },
   "jest": {
+    "preset": "ts-jest",
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
     "testPathIgnorePatterns": [
       "<rootDir>/.next/",
@@ -64,7 +79,8 @@
     "env": {
       "development": {
         "presets": [
-          "next/babel"
+          "next/babel",
+          "@zeit/next-typescript/babel"
         ],
         "plugins": [
           [
@@ -78,7 +94,8 @@
       },
       "production": {
         "presets": [
-          "next/babel"
+          "next/babel",
+          "@zeit/next-typescript/babel"
         ],
         "plugins": [
           [
@@ -99,7 +116,8 @@
                 "modules": "commonjs"
               }
             }
-          ]
+          ],
+          "@zeit/next-typescript/babel"
         ],
         "plugins": [
           [

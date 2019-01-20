@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import Form from './styles/Form'
@@ -39,7 +38,7 @@ class Signup extends Component {
             method="post"
             onSubmit={async e => {
               e.preventDefault()
-              const res = await signup()
+              await signup()
               this.setState({ name: '', email: '', password: '' })
             }}
           >
