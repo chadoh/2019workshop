@@ -1,23 +1,21 @@
 import formatMoney from '../lib/formatMoney'
 
-describe('formatMoney', () => {
-  it('works with cents', () => {
-    expect(formatMoney(1)).toEqual('$0.01')
-    expect(formatMoney(9)).toEqual('$0.09')
-    expect(formatMoney(40)).toEqual('$0.40')
-    expect(formatMoney(99)).toEqual('$0.99')
-  })
-
-  it('omits cents for whole-dollar amounts', () => {
-    expect(formatMoney(5000)).toEqual('$50')
-    expect(formatMoney(100)).toEqual('$1')
-    expect(formatMoney(5000000)).toEqual('$50,000')
-  })
-
-  it('works with whole and fractional dollars', () => {
-    expect(formatMoney(5012)).toEqual('$50.12')
-    expect(formatMoney(101)).toEqual('$1.01')
-    expect(formatMoney(110)).toEqual('$1.10')
-    expect(formatMoney(981673965592869)).toEqual('$9,816,739,655,928.69')
+describe.each`
+  given              | expected
+  ${1}               | ${'$0.01'}
+  ${9}               | ${'$0.09'}
+  ${40}              | ${'$0.40'}
+  ${99}              | ${'$0.99'}
+  ${100}             | ${'$1'}
+  ${5000}            | ${'$50'}
+  ${5000000}         | ${'$50,000'}
+  ${5012}            | ${'$50.12'}
+  ${101}             | ${'$1.01'}
+  ${110}             | ${'$1.10'}
+  ${110}             | ${'$1.10'}
+  ${981673965592869} | ${'$9,816,739,655,928.69'}
+`('formatMoney', ({ given, expected }) => {
+  test(`given \`${given}\` returns \`"${expected}"\``, () => {
+    expect(formatMoney(given)).toEqual(expected)
   })
 })
