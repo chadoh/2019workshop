@@ -16,7 +16,7 @@ const SIGNOUT_MUTATION = gql`
 const Nav = () => (
   <User>
     {({ data: { me } }) => (
-      <NavStyles>
+      <NavStyles data-test="nav">
         <Link href="/items">
           <a>Shop</a>
         </Link>
@@ -34,12 +34,12 @@ const Nav = () => (
             </Link>
             <Mutation
               mutation={SIGNOUT_MUTATION}
-              refetchQueries={[ { query: CURRENT_USER_QUERY } ]}
+              refetchQueries={[{ query: CURRENT_USER_QUERY }]}
             >
               {signout => <button onClick={signout}>Sign Out</button>}
             </Mutation>
             <Mutation mutation={TOGGLE_CART_MUTATION}>
-              {toggleCart =>
+              {toggleCart => (
                 <button onClick={toggleCart}>
                   Cart
                   <CartCount
@@ -49,7 +49,7 @@ const Nav = () => (
                     )}
                   />
                 </button>
-              }
+              )}
             </Mutation>
           </React.Fragment>
         )}

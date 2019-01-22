@@ -27,9 +27,10 @@ module.exports = {
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "single"],
     semi: ["error", "never"],
+    "comma-dangle": ["error", "always-multiline"],
+    "no-console": ["warn", { allow: ["warn", "error"] }],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "jsx-a11y/anchor-is-valid": "off",
-    "comma-dangle": ["error", "always-multiline"]
+    "jsx-a11y/anchor-is-valid": "off"
   }
 };
