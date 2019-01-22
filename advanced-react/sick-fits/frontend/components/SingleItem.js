@@ -19,7 +19,7 @@ const SingleItemStyles = styled.div`
   }
 `
 
-const SINGLE_ITEM_QUERY = gql`
+export const SINGLE_ITEM_QUERY = gql`
   query SINGLE_ITEM_QUERY($id: ID!) {
     item(where: { id: $id }) {
       id
@@ -32,10 +32,7 @@ const SINGLE_ITEM_QUERY = gql`
 `
 
 const SingleItem = ({ id }) => (
-  <Query
-    query={SINGLE_ITEM_QUERY}
-    variables={{ id }}
-  >
+  <Query query={SINGLE_ITEM_QUERY} variables={{ id }}>
     {({ loading, error, data: { item } }) => {
       if (loading) return 'Loading...'
       if (error) return <Error error={error} />

@@ -29,6 +29,7 @@ module.exports = {
     semi: ["error", "never"],
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "jsx-a11y/anchor-is-valid": "off"
+    "jsx-a11y/anchor-is-valid": "off",
+    "comma-dangle": ["error", "always-multiline"]
   }
 };
