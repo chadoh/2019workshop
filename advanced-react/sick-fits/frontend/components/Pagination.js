@@ -7,7 +7,7 @@ import Link from 'next/link'
 import PaginationStyles from './styles/PaginationStyles'
 import { perPage } from '../config'
 
-const PAGINATION_QUERY = gql`
+export const PAGINATION_QUERY = gql`
   query PAGINATION_QUERY {
     itemsConnection {
       aggregate {
@@ -19,39 +19,45 @@ const PAGINATION_QUERY = gql`
 
 const Pagination = ({ page }) => {
   return (
-    <Query
-      query={PAGINATION_QUERY}
-    >
-      {({data, loading, error}) => {
+    <Query query={PAGINATION_QUERY}>
+      {({ data, loading, error }) => {
         if (loading) return 'Loading...'
         if (error) return error
 
         const itemCount = data.itemsConnection.aggregate.count
         const pageCount = Math.ceil(itemCount / perPage)
         return (
-          <PaginationStyles>
+          <PaginationStyles data-test="pagination">
             <Head>
-              <title>Sick Fits! | Page {page} of {pageCount}</title>
+              <title>
+                Sick Fits! | Page {page} of {pageCount}
+              </title>
             </Head>
             <Link
               prefetch
               href={{
                 pathname: '/items',
-                query: { page: page - 1 }
+                query: { page: page - 1 },
               }}
             >
-              <a className="prev" aria-disabled={page <= 1}>← Prev</a>
+              <a className="prev" aria-disabled={page <= 1}>
+                ← Prev
+              </a>
             </Link>
-            <p>Page {page} of {pageCount}</p>
+            <p>
+              Page {page} of <span className="totalPages">{pageCount}</span>
+            </p>
             <p>{itemCount} Items Total</p>
             <Link
               prefetch
               href={{
                 pathname: '/items',
-                query: { page: page + 1 }
+                query: { page: page + 1 },
               }}
             >
-              <a className="next" aria-disabled={page >= pageCount}>Next →</a>
+              <a className="next" aria-disabled={page >= pageCount}>
+                Next →
+              </a>
             </Link>
           </PaginationStyles>
         )
