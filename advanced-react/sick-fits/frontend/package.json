@@ -36,10 +36,10 @@
     "react-dom": "^16.5.2",
     "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^2.5.0",
-    "styled-components": "^3.4.9",
-    "waait": "^1.0.2"
+    "styled-components": "^3.4.9"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.15",
     "@types/jest": "^23.3.13",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
@@ -59,7 +59,8 @@
     "jest-transform-graphql": "^2.1.0",
     "prettier": "^1.15.3",
     "ts-jest": "^23.10.5",
-    "tslint": "^5.12.1"
+    "tslint": "^5.12.1",
+    "waait": "github:chadoh/waait#typescript-rewrite"
   },
   "jest": {
     "preset": "ts-jest",

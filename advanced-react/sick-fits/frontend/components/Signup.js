@@ -5,35 +5,39 @@ import Form from './styles/Form'
 import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY } from './User'
 
-const SIGNUP_MUTATION = gql`
-mutation SIGNUP_MUTATION($email: String!, $name: String!, $password: String!) {
-  signup(email: $email, name: $name, password: $password) {
-    id
-    name
-    email
+export const SIGNUP_MUTATION = gql`
+  mutation SIGNUP_MUTATION(
+    $email: String!
+    $name: String!
+    $password: String!
+  ) {
+    signup(email: $email, name: $name, password: $password) {
+      id
+      name
+      email
+    }
   }
-}
 `
 
 class Signup extends Component {
   state = {
     name: '',
-    password: '',
     email: '',
-  }
+    password: '',
+  };
 
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value })
-  }
+  };
 
   render() {
     return (
       <Mutation
         mutation={SIGNUP_MUTATION}
         variables={this.state}
-        refetchQueries={[ { query: CURRENT_USER_QUERY } ]}
+        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(signup, { error, loading}) => (
+        {(signup, { error, loading }) => (
           <Form
             method="post"
             onSubmit={async e => {
