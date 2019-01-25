@@ -7,6 +7,7 @@ import { ApolloConsumer } from 'react-apollo'
 import SignUp, { SIGNUP_MUTATION } from '../components/SignUp'
 import { CURRENT_USER_QUERY } from '../components/User'
 import { fakeUser } from '../lib/testUtils'
+import { CartItemInterface } from '../components/CartItem'
 
 const type = (wrapper: ReactWrapper, name: string, value: string) => {
   wrapper.find(`input[name="${name}"]`).simulate('change', {
@@ -43,10 +44,11 @@ const currentUserMock = {
   result: { data: { me } },
 }
 
-interface UserInterface {
+export interface UserInterface {
   id: string;
   name: string;
   email: string;
+  cart: CartItemInterface[];
 }
 
 interface CurrentUserResponse {

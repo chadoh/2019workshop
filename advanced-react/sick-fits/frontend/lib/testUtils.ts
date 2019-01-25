@@ -1,4 +1,8 @@
 import casual from 'casual'
+import { ApolloClient } from 'apollo-client'
+import { CurrentUserResponse } from '../__tests__/SignUp.test'
+import { CartItemInterface } from '../components/CartItem'
+import { CURRENT_USER_QUERY } from '../components/User'
 
 // seed it so we get consistent results
 casual.seed(777)
@@ -44,7 +48,7 @@ const fakeOrder = () => ({
   user: fakeUser(),
 })
 
-const fakeCartItem = overrides => ({
+const fakeCartItem = (overrides?: object): object => ({
   __typename: 'CartItem',
   id: 'omg123',
   quantity: 3,
@@ -55,6 +59,8 @@ const fakeCartItem = overrides => ({
 
 // Fake LocalStorage
 class LocalStorageMock {
+  store: { [key: string]: any };
+
   constructor() {
     this.store = {}
   }
@@ -63,17 +69,26 @@ class LocalStorageMock {
     this.store = {}
   }
 
-  getItem(key) {
+  getItem(key: string) {
     return this.store[key] || null
   }
 
-  setItem(key, value) {
+  setItem(key: string, value: any) {
     this.store[key] = value.toString()
   }
 
-  removeItem(key) {
+  removeItem(key: string) {
     delete this.store[key]
   }
+}
+
+export const refetchCart = async (
+  client: ApolloClient<any>
+): Promise<CartItemInterface[]> => {
+  const res = await client.query<CurrentUserResponse>({
+    query: CURRENT_USER_QUERY,
+  })
+  return res.data.me.cart
 }
 
 export {

@@ -15,8 +15,8 @@ const BigButton = styled.button`
   }
 `
 
-const REMOVE_FROM_CART = gql`
-  mutation REMOVE_FROM_CART($id: ID!) {
+export const REMOVE_FROM_CART_MUTATION = gql`
+  mutation REMOVE_FROM_CART_MUTATION($id: ID!) {
     removeFromCart(id: $id) {
       id
     }
@@ -37,7 +37,7 @@ const updateCache = (cache, payload) => {
 const RemoveFromCart = ({ id }) => {
   return (
     <Mutation
-      mutation={REMOVE_FROM_CART}
+      mutation={REMOVE_FROM_CART_MUTATION}
       variables={{ id }}
       update={updateCache}
       optimisticResponse={{
@@ -45,17 +45,16 @@ const RemoveFromCart = ({ id }) => {
         removeFromCart: {
           __typename: 'CartItem',
           id,
-        }
+        },
       }}
     >
-      {(removeFromCart, { error, loading}) => (
+      {(removeFromCart, { error, loading }) => (
         <BigButton
           title="Delete Item"
           onClick={() => {
-            removeFromCart()
-              .catch(err =>
-                alert(err.message.replace('GraphQL error: ', ''))
-              )
+            removeFromCart().catch(err =>
+              alert(err.message.replace('GraphQL error: ', ''))
+            )
           }}
           disabled={loading}
         >
