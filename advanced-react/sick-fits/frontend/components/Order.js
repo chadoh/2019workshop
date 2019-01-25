@@ -8,7 +8,7 @@ import formatMoney from '../lib/formatMoney'
 import Error from './ErrorMessage'
 import OrderStyles from './styles/OrderStyles'
 
-const SINGLE_ORDER_QUERY = gql`
+export const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
     order(id: $id) {
       id
@@ -28,15 +28,12 @@ const SINGLE_ORDER_QUERY = gql`
 `
 
 const Order = ({ id }) => (
-  <Query
-    query={SINGLE_ORDER_QUERY}
-    variables={{ id }}
-  >
-    {({ data: { order }, error, loading}) => {
+  <Query query={SINGLE_ORDER_QUERY} variables={{ id }}>
+    {({ data: { order }, error, loading }) => {
       if (loading) return 'Loading...'
       if (error) return <Error error={error} />
       return (
-        <OrderStyles>
+        <OrderStyles data-test="order">
           <Head>
             <title>Sick Fits | Order {order.id}</title>
           </Head>
@@ -79,7 +76,6 @@ const Order = ({ id }) => (
     }}
   </Query>
 )
-
 
 Order.propTypes = {
   id: PropTypes.string.isRequired,
