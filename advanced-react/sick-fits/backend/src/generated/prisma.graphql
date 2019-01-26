@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/chad-ostrowski-69fb43/sick-fits-chadoh/dev
-# timestamp: Sat Jan 26 2019 07:47:42 GMT-0500 (EST)
+# source: https://sick-fits-prod-86e5e0b597.herokuapp.com/sick-fits-prod/prod
+# timestamp: Sat Jan 26 2019 08:41:37 GMT-0500 (EST)
 
 type AggregateCartItem {
   count: Int!
@@ -223,7 +223,6 @@ input CartItemUpdateManyMutationInput {
 input CartItemUpdateManyWithoutItemInput {
   create: [CartItemCreateWithoutItemInput!]
   connect: [CartItemWhereUniqueInput!]
-  set: [CartItemWhereUniqueInput!]
   disconnect: [CartItemWhereUniqueInput!]
   delete: [CartItemWhereUniqueInput!]
   update: [CartItemUpdateWithWhereUniqueWithoutItemInput!]
@@ -235,7 +234,6 @@ input CartItemUpdateManyWithoutItemInput {
 input CartItemUpdateManyWithoutUserInput {
   create: [CartItemCreateWithoutUserInput!]
   connect: [CartItemWhereUniqueInput!]
-  set: [CartItemWhereUniqueInput!]
   disconnect: [CartItemWhereUniqueInput!]
   delete: [CartItemWhereUniqueInput!]
   update: [CartItemUpdateWithWhereUniqueWithoutUserInput!]
@@ -1311,7 +1309,6 @@ input OrderItemUpdateManyDataInput {
 input OrderItemUpdateManyInput {
   create: [OrderItemCreateInput!]
   connect: [OrderItemWhereUniqueInput!]
-  set: [OrderItemWhereUniqueInput!]
   disconnect: [OrderItemWhereUniqueInput!]
   delete: [OrderItemWhereUniqueInput!]
   update: [OrderItemUpdateWithWhereUniqueNestedInput!]
@@ -1842,7 +1839,6 @@ input OrderUpdateManyMutationInput {
 input OrderUpdateManyWithoutUserInput {
   create: [OrderCreateWithoutUserInput!]
   connect: [OrderWhereUniqueInput!]
-  set: [OrderWhereUniqueInput!]
   disconnect: [OrderWhereUniqueInput!]
   delete: [OrderWhereUniqueInput!]
   update: [OrderUpdateWithWhereUniqueWithoutUserInput!]
