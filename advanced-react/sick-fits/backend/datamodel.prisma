@@ -16,6 +16,7 @@ type User {
   resetTokenExpiry: String
   permissions: [Permission]
   cart: [CartItem!]!
+  orders: [Order!]!
 }
 
 type Item {
