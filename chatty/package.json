@@ -1,0 +1,41 @@
+{
+  "name": "chatty",
+  "version": "0.0.1",
+  "description": "Clone of WhatsApp; @chadoh follows along with https://medium.com/react-native-training/building-chatty-a-whatsapp-clone-with-react-native-and-apollo-part-1-setup-68a02f7e11",
+  "main": "index.js",
+  "scripts": {
+    "tsc": "tsc",
+    "build": "tsc",
+    "start": "node ./.build/server/index.js",
+    "dev": "ts-node-dev --respawn --transpileOnly ./server/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+github.com/chadoh/2019workshop.git"
+  },
+  "keywords": [
+    "react native",
+    "graphql",
+    "apollo"
+  ],
+  "author": "@chadoh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chadoh/2019workshop/issues"
+  },
+  "homepage": "https://github.com/chadoh/2019workshop/blob/master/chatty#readme",
+  "private": true,
+  "devDependencies": {
+    "@types/graphql": "^14.0.5",
+    "eslint": "^5.12.1",
+    "nodemon": "^1.18.9",
+    "prettier": "^1.16.1",
+    "ts-node-dev": "^1.0.0-pre.32",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "apollo-server": "^2.3.3",
+    "graphql": "^14.1.1"
+  }
+}
