@@ -1,16 +1,13 @@
+const WORDS: [(u32, &'static str); 3] = [(3, "Pling"), (5, "Plang"), (7, "Plong")];
+
 pub fn raindrops(n: u32) -> String {
-    let mut s = String::new();
-    if n % 3 == 0 {
-        s = s + "Pling";
+    match WORDS
+        .iter()
+        .filter(|&(d, _)| n % d == 0)
+        .map(|&(_, w)| w)
+        .collect::<String>()
+    {
+        ref res if !res.is_empty() => res.to_string(),
+        _ => n.to_string(),
     }
-    if n % 5 == 0 {
-        s = s + "Plang";
-    }
-    if n % 7 == 0 {
-        s = s + "Plong";
-    }
-    if s.len() == 0 {
-        s = n.to_string();
-    }
-    s
 }
