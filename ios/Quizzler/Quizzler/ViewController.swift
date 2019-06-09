@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     let allQuestions = QuestionBank()
     var questionNumber : Int = 0
+    var score : Int = 0
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -32,13 +33,17 @@ class ViewController: UIViewController {
     
     
     func updateUI() {
-      questionLabel.text = allQuestions.list[questionNumber].questionText
+        questionLabel.text = allQuestions.list[questionNumber].questionText
+        scoreLabel.text = "Score: \(score)"
+        progressLabel.text = "\(questionNumber + 1) / \(allQuestions.list.count)"
+        let progressWidth = (UIScreen.main.bounds.width / CGFloat(allQuestions.list.count)) * CGFloat(questionNumber + 1)
+        progressBar.frame.size.width = progressWidth
     }
     
 
     func nextQuestion() {
         if questionNumber + 1 < allQuestions.list.count {
-            questionNumber = questionNumber + 1
+            questionNumber += 1
         }
         else {
             let alert = UIAlertController(title: "Awesome", message: "You've finished all the questions, do you want to start over?", preferredStyle: .alert
@@ -55,16 +60,18 @@ class ViewController: UIViewController {
     func checkAnswer(_ guessed: Bool) {
         let correct = allQuestions.list[questionNumber].answer
         if guessed == correct {
-            print("You got it!")
+            score += 1
+            ProgressHUD.showSuccess("Yes!")
         }
         else {
-            print("wrong!")
+            ProgressHUD.showError("Wrong!")
         }
     }
     
     
     func startOver() {
         questionNumber = 0
+        score = 0
         updateUI()
     }
     
